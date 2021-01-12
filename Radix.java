@@ -7,6 +7,6 @@ public class Radix {
 
   public static int length(int n) {
     int num = n;
-    return (int)(Math.log((double)num) / Math.log(10.0));
+    return (int)(Math.log((double)num) / Math.log(10.0)) + 1;
   }
 }
