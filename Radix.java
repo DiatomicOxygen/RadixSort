@@ -1,12 +1,12 @@
 public class Radix {
 
   public static int nth(int n, int col) {
-    int num = n;
+    int num = Math.abs(n);
     return (num / ((int)Math.pow(10, col))) % 10;
   }
 
   public static int length(int n) {
-    int num = n;
+    int num = Math.abs(n);
     return (int)(Math.log((double)num) / Math.log(10.0)) + 1;
   }
 
@@ -49,4 +49,25 @@ public class Radix {
     }
   }
 
+  public static void radixSort(SortableLinkedList data) {
+    SortableLinkedList negativeData = new SortableLinkedList();
+    int n;
+    for (int i = 0; i < data.size(); i++) {
+      n = data.get(i);
+      if (data.get(i) < 0) {
+        negativeData.add(n);
+        data.remove(i);
+        i--;
+      }
+    }
+
+    radixSortSimple(data);
+    radixSortSimple(negativeData);
+    SortableLinkedList newNegData = new SortableLinkedList();
+    for (int i = negativeData.size() - 1; i >= 0; i--) {
+      newNegData.add(negativeData.get(i));
+    }
+    newNegData.extend(data);
+    data.extend(newNegData);
+  }
 }
