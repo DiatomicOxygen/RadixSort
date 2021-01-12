@@ -9,4 +9,10 @@ public class Radix {
     int num = n;
     return (int)(Math.log((double)num) / Math.log(10.0)) + 1;
   }
+
+  public static void merge(MyLinkedList original, MyLinkedList[] buckets) {
+    for (MyLinkedList bucket : buckets) {
+      original.extend(bucket);
+    }
+  }
 }
