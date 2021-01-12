@@ -16,5 +16,37 @@ public class Radix {
     }
   }
 
+  private static int largestDigit(SortableLinkedList data) {
+    int largestDigit = 0;
+    int n;
+    for (int i = 0; i < data.size(); i++) {
+      n = data.get(i);
+      n = length(n);
+      largestDigit = Math.max(largestDigit, n);
+    }
+    return largestDigit;
+  }
+
+  public static void radixSortSimple(SortableLinkedList data) {
+    SortableLinkedList[] buckets = new SortableLinkedList[10];
+    for (int i = 0; i < 10; i++) {
+      buckets[i] = new SortableLinkedList();
+    }
+
+    int size = data.size();
+    int largestDigit = largestDigit(data);
+    int n, d;
+    for (int i = 0; i < largestDigit; i++) {
+      for (int j = 0; j < size; j++) {
+        n = data.get(j);
+        d = nth(n, i);
+        buckets[d].add(n);
+      }
+      for (int k = 0; k < size; k++) {
+        data.remove(0);
+      }
+      merge(data, buckets);
+    }
+  }
 
 }
