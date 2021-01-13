@@ -39,23 +39,26 @@ public class Radix {
 
   public static void radixSort(SortableLinkedList data) {
     SortableLinkedList negativeData = new SortableLinkedList();
+    SortableLinkedList positiveData = new SortableLinkedList();
     int n;
-    for (int i = 0; i < data.size(); i++) {
-      n = data.get(i);
-      if (data.get(i) < 0) {
+    while (data.size() > 0) {
+      n = data.get(0);
+      if (n < 0) {
         negativeData.add(n);
-        data.remove(i);
-        i--;
+        data.remove(0);
+      } else {
+        positiveData.add(n);
+        data.remove(0);
       }
     }
 
-    radixSortSimple(data);
+    radixSortSimple(positiveData);
     radixSortSimple(negativeData);
     SortableLinkedList newNegData = new SortableLinkedList();
     for (int i = negativeData.size() - 1; i >= 0; i--) {
-      newNegData.add(negativeData.get(i));
+      newNegData.add(0, negativeData.get(0));
     }
-    newNegData.extend(data);
+    newNegData.extend(positiveData);
     data.extend(newNegData);
   }
 }
