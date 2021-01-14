@@ -11,7 +11,7 @@ public class Radix {
 
   public static int length(int n) {
     int num = Math.abs(n);
-    return (int)(Math.log10((double)num) / Math.log(10.0)) + 1;
+    return (int)(Math.log((double)num) / Math.log(10.0)) + 1;
   }
 
   public static void merge(SortableLinkedList original, SortableLinkedList[] buckets) {
@@ -26,6 +26,7 @@ public class Radix {
       buckets[i] = new SortableLinkedList();
     }
 
+    int size = data.size();
     int largestDigit = 1;
     int n, d;
     for (int i = 0; i < largestDigit; i++) {
@@ -44,11 +45,13 @@ public class Radix {
     SortableLinkedList positiveData = new SortableLinkedList();
     int n;
     while (data.size() > 0) {
-      n = data.remove(0);
+      n = data.get(0);
       if (n < 0) {
         negativeData.add(n);
+        data.remove(0);
       } else {
         positiveData.add(n);
+        data.remove(0);
       }
     }
 
