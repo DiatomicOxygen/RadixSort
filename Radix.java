@@ -30,11 +30,10 @@ public class Radix {
     int n, d;
     for (int i = 0; i < largestDigit; i++) {
       while (data.size() > 0) {
-        n = data.get(0);
+        n = data.remove(0);
         d = nth(n, i);
         largestDigit = Math.max(largestDigit, length(n));
         buckets[d].add(n);
-        data.remove(0);
       }
       merge(data, buckets);
     }
@@ -45,21 +44,19 @@ public class Radix {
     SortableLinkedList positiveData = new SortableLinkedList();
     int n;
     while (data.size() > 0) {
-      n = data.get(0);
+      n = data.remove(0);
       if (n < 0) {
         negativeData.add(n);
-        data.remove(0);
       } else {
         positiveData.add(n);
-        data.remove(0);
       }
     }
 
     radixSortSimple(positiveData);
     radixSortSimple(negativeData);
     SortableLinkedList newNegData = new SortableLinkedList();
-    for (int i = negativeData.size() - 1; i >= 0; i--) {
-      newNegData.add(0, negativeData.get(0));
+    while (negativeData.size() > 0) {
+      newNegData.add(0, negativeData.remove(0));
     }
     newNegData.extend(positiveData);
     data.extend(newNegData);
