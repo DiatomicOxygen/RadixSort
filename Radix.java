@@ -2,12 +2,16 @@ public class Radix {
 
   public static int nth(int n, int col) {
     int num = Math.abs(n);
-    return (num / ((int)Math.pow(10, col))) % 10;
+    int ten = 1;
+    for (int i = 0; i < col; i++) {
+      ten = ten * 10;
+    }
+    return (num / (ten)) % 10;
   }
 
   public static int length(int n) {
     int num = Math.abs(n);
-    return (int)(Math.log((double)num) / Math.log(10.0)) + 1;
+    return (int)(Math.log10((double)num) / Math.log(10.0)) + 1;
   }
 
   public static void merge(SortableLinkedList original, SortableLinkedList[] buckets) {
@@ -22,11 +26,10 @@ public class Radix {
       buckets[i] = new SortableLinkedList();
     }
 
-    int size = data.size();
     int largestDigit = 1;
     int n, d;
     for (int i = 0; i < largestDigit; i++) {
-      for (int j = 0; j < size; j++) {
+      while (data.size() > 0) {
         n = data.get(0);
         d = nth(n, i);
         largestDigit = Math.max(largestDigit, length(n));
